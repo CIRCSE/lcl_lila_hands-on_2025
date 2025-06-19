@@ -5,7 +5,7 @@ LCL 20250 - LiLa hands-on session
 Create a mock dictionary entry, using the data modelled according to the Linked Open Data and turning it into Natural Language, using the generative power of LLMs.
 
 
-From this:
+From this mess:
 |lemma                                  |property		   |value                                |definition                           |
 |---------------------------------------|------------------|-------------------------------------|-------------------------------------|
 |http://lila-erc.eu/data/id/lemma/117081|lila:hasPOS       |lila:noun                            |A rhet. figure, in which a thi...... |
@@ -25,6 +25,10 @@ In general, a giving up, yielding, ceding to another's will and pleasure; an unc
 A rhetorical figure, in which a thing is committed to the decision of one's opponent, permission.*
 
 
+## Requirements 
+
+- Python 3
+- An editor to write code (Visual Studio Code suggested)
 
 ## Steps:
 
@@ -44,6 +48,8 @@ LiLa SPARQL Endpoint: [https://lila-erc.eu/sparql/lila_knowledge_base/sparql](ht
 Python modules : ```requests, openai```
 
 example queries (in this repository)
+
+
 
 ## Hint:
 
