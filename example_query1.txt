@@ -1,0 +1,20 @@
+PREFIX lila: <http://lila-erc.eu/ontologies/lila/>
+PREFIX lime: <http://www.w3.org/ns/lemon/lime#>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select ?l ?p ?v (GROUP_CONCAT(DISTINCT ?varLabel ;separator=", ") as ?varLabels) ?definition where {
+  ?l rdfs:label "permissio".
+  ?l  ?p ?v;
+      dcterms:isPartOf <http://lila-erc.eu/data/id/lemma/LemmaBank>.
+  optional {
+    <http://lila-erc.eu/data/lexicalResources/LewisShort/Lexicon> lime:entry ?le.
+    ?le ontolex:canonicalForm ?l;
+        ontolex:sense ?sense.
+    ?sense <http://www.w3.org/2004/02/skos#definition> ?definition.
+  }
+  optional{
+  	?l lila:lemmaVariant ?var.
+    ?var rdfs:label ?varLabel.
+  }
+} group by ?l ?p ?v ?definition
