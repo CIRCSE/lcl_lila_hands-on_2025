@@ -43,6 +43,7 @@ LiLa SPARQL Endpoint: [https://lila-erc.eu/sparql/lila_knowledge_base/sparql](ht
 
 Python modules : ```requests, openai```
 
+example queries (in this repository)
 
 ## Hint:
 
