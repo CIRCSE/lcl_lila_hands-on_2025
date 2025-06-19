@@ -62,6 +62,23 @@ params = {query': 'a query', "format": "json"}
 x = requests.post(url, data=params)}
 ```
 
+To use opeanAI api use somthing like that:
+```
+stream = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "......"},
+            {"role": "user", "content": "......"},
+            {"role": "assistant", "content": "........"},
+              ],
+    stream=True
+)
+
+for chunk in stream:
+    if chunk.choices[0].delta.content is not None:
+        print(chunk.choices[0].delta.content, end="")
+```
+
+
 ## Documentation 
 
 OpenAI API Documentation : https://platform.openai.com/docs/quickstart
