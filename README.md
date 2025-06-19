@@ -68,4 +68,5 @@ OpenAI API Documentation : https://platform.openai.com/docs/quickstart
 
 ## API Key:
 
+https://www.dropbox.com/scl/fi/c3v5vx4lhfbfwic939bnm/api_key.txt?rlkey=zs97ufynm8hu42rsnrureg14k&dl=1
 
