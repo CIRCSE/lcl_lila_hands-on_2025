@@ -37,7 +37,7 @@ A rhetorical figure, in which a thing is committed to the decision of one's oppo
 
 ## Ingredients:
 
-LiLa Ontology OWL: [https://raw.githubusercontent.com/CIRCSE/LiLaOntologies/refs/heads/main/lila.owl](https://raw.githubusercontent.com/CIRCSE/LiLaOntologies/refs/heads/main/lila.owl)
+LiLa Ontology OWL (Also in this repo): [https://raw.githubusercontent.com/CIRCSE/LiLaOntologies/refs/heads/main/lila.owl](https://raw.githubusercontent.com/CIRCSE/LiLaOntologies/refs/heads/main/lila.owl)
 
 LiLa SPARQL Endpoint: [https://lila-erc.eu/sparql/lila_knowledge_base/sparql](https://lila-erc.eu/sparql/lila_knowledge_base/sparql)
 

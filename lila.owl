@@ -1,0 +1,1883 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://lila-erc.eu/ontologies/lila/"
+     xml:base="http://lila-erc.eu/ontologies/lila/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:ns="http://creativecommons.org/ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:system="http://purl.org/olia/system.owl#">
+    <owl:Ontology rdf:about="http://lila-erc.eu/ontologies/lila/">
+        <owl:versionIRI rdf:resource="http://lila-erc.eu/ontologies/lila/0.2.1"/>
+        <owl:imports rdf:resource="http://purl.org/olia/system.owl"/>
+        <owl:imports rdf:resource="http://www.w3.org/ns/lemon/ontolex"/>
+        <rdfs:comment>Basic ontology for the Lemma, which includes also the annotation module.
+
+The annotation part serves as a sort of &quot;tagset&quot; for the annotation of the LiLa&apos;s lemma collections, as it lays all the concepts that will be linked to the LiLa lemmas.
+
+At the same time it also serves as a typical OLiA annotation module, that is included into a lila-linking.owl module and linked to the rest of the OLiA set of ontologies</rdfs:comment>
+        <rdfs:comment>The following naming conventions for classes and individuals have been used:
+- classes are in uppercase, camel style (e.g. Adjective, CoordinatingConjunction)
+- individuals are in lower case with dash (e.g. adjective, coordinating_conjunction)
+
+thus: :adjective a :Adjective and :coordinating_conjunction a :CoordinatingConjunction</rdfs:comment>
+        <owl:versionInfo>0.0.1: TO DO:
+- shall we add subgroup for 2nd declension (neuter)?
+- codles missing: n2ne, n3ne, n73</owl:versionInfo>
+        <owl:versionInfo>v. 0.0.1: all the UPOS from UD were imported under POS, including those that have dubious relevance to Lemlat&apos;s lemmas (e.g. PART, INTJ, X etc...). We will have to verify that and decide what to do</owl:versionInfo>
+        <owl:versionInfo>v. 0.1:
+- first release of LiLa&apos;s new &quot;Lemmario&quot;
+- review of some minor issue (marked as &quot;TO BE REVIEWED&quot; in the comments</owl:versionInfo>
+        <owl:versionInfo>v. 0.1:
+- first release of LiLa&apos;s new &quot;Lemmario&quot;
+- review of some minor issue (marked as &quot;TO BE REVIEWED&quot; in the comments
+- &quot;generic&quot; label in conjugations changed to &quot;isolated form&quot;
+- &quot;transitive&quot; label removed from conjugations (e.g. &quot;first conj. transitive verb&quot; &gt; &quot;first conj. verb&quot;)
+- different treatment of Verbs and Aux&apos;s: now UPOS tag VERB are assigned to generic lila-anno:Verb; Aux are a sub class. Subclass of &apos;non auxiliary verb&apos; deleted</owl:versionInfo>
+        <owl:versionInfo>v. 0.2.1:
+- &quot;Uninflected verb&quot; class created as subclass of Verbal Inflection, to be consistend with how uninflected nouns/adjs are treated in the nominal inflection</owl:versionInfo>
+        <owl:versionInfo>v. 0.2: annotation and definition modules merged into one namespace and one file</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/annotation -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/annotation">
+        <rdfs:comment>General property for morphological annotation (including POS)</rdfs:comment>
+        <rdfs:label>morphological annotation</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasAffix -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasAffix">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/wordFormation"/>
+        <rdfs:label>has affix</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasBase -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasBase">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/wordFormation"/>
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isBase"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Base"/>
+        <rdfs:label>has base</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasDegree -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasDegree">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/annotation"/>
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isDegree"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+        <rdfs:label>has degree</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasGender -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasGender">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/annotation"/>
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isGender"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Gender"/>
+        <rdfs:label>has gender</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasHypolemma -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasHypolemma">
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isHypolemma"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://lila-erc.eu/ontologies/lila/Lemma"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Hypolemma"/>
+        <rdfs:label>has hypolemma</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasInflectionType -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasInflectionType">
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isInflectionType"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/InflectionType"/>
+        <rdfs:label>has inflection type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasLemma -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasLemma">
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Lemma"/>
+        <rdfs:comment>Property that links corpus tokens (NIF words) to lemmas of LiLa</rdfs:comment>
+        <rdfs:label>has lemma</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasPOS -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasPOS">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/annotation"/>
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isPOS"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>has POS</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasPrefix -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasPrefix">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/hasAffix"/>
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isPrefix"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Prefix"/>
+        <rdfs:label>has prefix</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/hasSuffix -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/hasSuffix">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/hasAffix"/>
+        <owl:inverseOf rdf:resource="http://lila-erc.eu/ontologies/lila/isSuffix"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Suffix"/>
+        <rdfs:label>has suffix</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isBase -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isBase">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/wordFormation"/>
+        <rdfs:label>is base</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isDegree -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isDegree">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/annotation"/>
+        <rdfs:label>is degree</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isGender -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isGender">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/annotation"/>
+        <rdfs:label>is gender</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isHypolemma -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isHypolemma">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://lila-erc.eu/ontologies/lila/Hypolemma"/>
+        <rdfs:range rdf:resource="http://lila-erc.eu/ontologies/lila/Lemma"/>
+        <rdfs:label>is hypolemma</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isInflectionType -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isInflectionType">
+        <rdfs:label>is inflection type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isPOS -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isPOS">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/annotation"/>
+        <rdfs:label>is POS</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isPrefix -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isPrefix">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/hasAffix"/>
+        <rdfs:label>is prefix</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/isSuffix -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/isSuffix">
+        <rdfs:subPropertyOf rdf:resource="http://lila-erc.eu/ontologies/lila/hasAffix"/>
+        <rdfs:label>is suffix</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/lemmaVariant -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/lemmaVariant">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:comment>Used for lemmas that can be used alternatively. Note that two Lemmas linked via lemma-variant differ in some morphological features. Example: a deponent verb that also has an active variant differs from its lemma variant for the voice feature (active/passive).
+
+Note that LiLa is agnostic for what concerns the importance of the two variants. Both lemma variant have the same status. E.g. &quot;sequor&quot; (a very common deponent verb) has also an active variant &quot;sequo&quot; attested in some lexicographical source (see Georges s.v. &quot;sequo&quot;). Though &quot;sequor&quot; is arguably the most important form, both variant are registered equally in LiLa.
+
+Lemma variant is both symmetric and transitive (if A is variant of B and of C, then B is a variant of C)</rdfs:comment>
+        <rdfs:label>lemma variant</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/wordFormation -->
+
+    <owl:ObjectProperty rdf:about="http://lila-erc.eu/ontologies/lila/wordFormation">
+        <rdfs:comment>General super-property for all the WFL-related properties in LiLa. I.e. it includes all properties used to model the relations between Lemmas and Affixes (as Forms)</rdfs:comment>
+        <rdfs:label>word formation</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/prosodicRepresentation -->
+
+    <owl:DatatypeProperty rdf:about="http://lila-erc.eu/ontologies/lila/prosodicRepresentation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/lemon/ontolex#representation"/>
+        <rdfs:comment xml:lang="en">String with vowel length marked (brevis or longa). In most cases, not all vowels receive length mark, but only the ambiguous ones. E.g. &quot;occīdo&quot; (long &quot;i&quot;) vs &quot;occĭdo&quot; (short &quot;i&quot;)</rdfs:comment>
+        <rdfs:label>prosodic representation</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/AdjectivalInflection -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/AdjectivalInflection">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/InflectionType"/>
+        <rdfs:label>Adjectival Inflection</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/AdjectivalLemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/AdjectivalLemma">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasPOS"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Adjective"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/_by_inflection_type"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasInflectionType"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/AdjectivalInflection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Adjective -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Adjective">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Adjective</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Adposition -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Adposition">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Adposition</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Adverb -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Adverb">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Adverb</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Affix -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Affix">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Morpheme"/>
+        <owl:disjointWith rdf:resource="http://lila-erc.eu/ontologies/lila/Base"/>
+        <rdfs:label>Affix</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Auxiliary -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Auxiliary">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Verb"/>
+        <rdfs:label>Auxiliary verb</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Base -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Base">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Morpheme"/>
+        <rdfs:comment xml:lang="en">A (Lexical) Base is a morpheme which defines the common lexical element of a word that is shared by forms belonging to the same derivational family. E.g.: socialis, socius, sociare etc.
+
+Note that in LiLa we don&apos;t describe the Base, we don&apos;t even attribute a Written Representation or a descriptive label</rdfs:comment>
+        <rdfs:label>Base</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/CommonNoun -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/CommonNoun">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Noun"/>
+        <rdfs:label>Common Noun</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Comparative -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Comparative">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+        <rdfs:label>Comparative</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Conjunction -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Conjunction">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Conjunction</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/CoordinatingConjunction -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/CoordinatingConjunction">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Conjunction"/>
+        <rdfs:label>Coordinating Conjunction</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Degree -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Degree">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/MorphologicalFeatures"/>
+        <rdfs:label>Degree</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Determiner -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Determiner">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Determiner</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Feminine -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Feminine">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Gender"/>
+        <rdfs:label>Feminine</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/FifthDeclension -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/FifthDeclension">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+        <rdfs:label>Fifth Declension</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/FirstClass -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/FirstClass">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/AdjectivalInflection"/>
+        <owl:disjointWith rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <rdfs:comment>Includes also perfect and future participles and gerundives</rdfs:comment>
+        <rdfs:label>First Class</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/FirstConjugation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/FirstConjugation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>First Conjugation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/FirstDeclension -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/FirstDeclension">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+        <rdfs:label>First Declension</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/FourthConjugation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/FourthConjugation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>Fourth Conjugation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/FourthDeclension -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/FourthDeclension">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+        <rdfs:label>Fourth Declension</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Gender -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Gender">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/MorphologicalFeatures"/>
+        <rdfs:label>Gender</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Hypolemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Hypolemma">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/isHypolemma"/>
+                <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Lemma"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Lemma"/>
+        <rdfs:comment>A Hypolemma is a Form that is used (or may be used) by a Lemmatizer to lemmatize a token. However, this form can also be analyzed as an inflected (or otherwise derived) form of a another Lemma.
+
+De-adjectival adverbs (e.g. &quot;vehementer&quot;) and participles used adjectivally (even frequent ones, like &quot;mortuus&quot;) are prototypical examples.</rdfs:comment>
+        <rdfs:label>Hypolemma</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/InflectionType -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/InflectionType">
+        <rdfs:subClassOf rdf:resource="http://purl.org/olia/system.owl#Feature"/>
+        <rdfs:label>Inflection Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Interjection -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Interjection">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Interjection</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Invariable -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Invariable">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/InflectionType"/>
+        <rdfs:comment>Class assigned to all parts of speech that are grammatically not inflected (thus, not including those POS&apos;s that are normally inflected, but in some special case are actually not declined or cojugated)</rdfs:comment>
+        <rdfs:label>Invariable</rdfs:label>
+        <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://lila-erc.eu/ontologies/lila/UninflectedNoun</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/InvariableLemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/InvariableLemma">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasPOS"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Adposition"/>
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Adverb"/>
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Conjunction"/>
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Interjection"/>
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Particle"/>
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Punctuation"/>
+                            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Symbol"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/_by_inflection_type"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasDegree"/>
+                        <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasGender"/>
+                        <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Gender"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/IrregularConjugation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/IrregularConjugation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>Irregular Conjugation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Lemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Lemma">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/lemon/ontolex#Form"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasPOS"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>A Lemma must have a POS, but it cannot have more than 1</rdfs:comment>
+        <rdfs:comment>In LiLa, a Lemma is a form in the word inflection that is used (or may potentially be used) to lemmatize tokens in a corpus.</rdfs:comment>
+        <rdfs:label>Lemma</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Masculine -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Masculine">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Gender"/>
+        <rdfs:label>Masculine</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Morpheme -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Morpheme">
+        <rdfs:comment xml:lang="en">A derivational Morpheme (Base and Affix), seen as form, not as a Lexical Item.
+
+For the Morpheme as Lexical Item, see the Ontolex ontology</rdfs:comment>
+        <rdfs:comment xml:lang="en">PROBLEM! Logically, Morphemes in LiLa are Forms and bases are Morphemes. However, LiLa&apos;s Morphemes cannot be made sub-classes of ontolex:form, because a form must have 1+ Writter Representation. Base in LiLa don&apos;t have that</rdfs:comment>
+        <rdfs:label>Morpheme</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/MorphologicalFeatures -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/MorphologicalFeatures">
+        <rdfs:subClassOf rdf:resource="http://purl.org/olia/system.owl#Feature"/>
+        <rdfs:label>Morphological Features</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Neuter -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Neuter">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Gender"/>
+        <rdfs:label>Neuter</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/NominalInflection -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/NominalInflection">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/InflectionType"/>
+        <owl:disjointWith rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>Nominal Inflection</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/NominalLemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/NominalLemma">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasPOS"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Noun"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/_by_inflection_type"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasDegree"/>
+                        <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasInflectionType"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Noun -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Noun">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Noun</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Numeral -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Numeral">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Numeral</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Other -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Other">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Other</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/POS -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/POS">
+        <rdfs:subClassOf rdf:resource="http://purl.org/olia/system.owl#UnitOfAnnotation"/>
+        <rdfs:label>Part of Speech</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Particle -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Particle">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Particle</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Perfectum -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Perfectum">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:comment>Verbs that are inflected only in forms of the perfectum tense</rdfs:comment>
+        <rdfs:label>Perfectum</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Positive -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Positive">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+        <rdfs:label>Positive</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Prefix -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Prefix">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Affix"/>
+        <owl:disjointWith rdf:resource="http://lila-erc.eu/ontologies/lila/Suffix"/>
+        <rdfs:label>Prefix</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/PronominalInflection -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/PronominalInflection">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/InflectionType"/>
+        <rdfs:label>Pronominal Inflection</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/PronominalLemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/PronominalLemma">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasPOS"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Pronoun"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/_by_inflection_type"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasDegree"/>
+                        <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasInflectionType"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/PronominalInflection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Pronoun -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Pronoun">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Pronoun</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/ProperNoun -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/ProperNoun">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Noun"/>
+        <rdfs:label>Proper Noun</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Punctuation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Punctuation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Punctuation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/SecondClass -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/SecondClass">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/AdjectivalInflection"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">Second Class</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/SecondConjugation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/SecondConjugation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>Second Conjugation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/SecondDeclension -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/SecondDeclension">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+        <rdfs:label>Second Declension</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/SubordinatingConjunction -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/SubordinatingConjunction">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Conjunction"/>
+        <rdfs:label>Subordinating Conjunction</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Suffix -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Suffix">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Affix"/>
+        <rdfs:label>Suffix</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Superlative -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Superlative">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+        <rdfs:label>Superlative</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Symbol -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Symbol">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Symbol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Tense -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Tense">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/MorphologicalFeatures"/>
+        <rdfs:label>Tense</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/ThirdConjugation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/ThirdConjugation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>Third Conjugation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/ThirdDeclension -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/ThirdDeclension">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+        <rdfs:label>Third Declension</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/UninflectedNoun -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/UninflectedNoun">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+        <rdfs:label>Uninflected Noun/Adjective</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/UninflectedVerb -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/UninflectedVerb">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>Uninflected Verb</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/Verb -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/Verb">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/POS"/>
+        <rdfs:label>Verb</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/VerbalInflection -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/VerbalInflection">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/InflectionType"/>
+        <rdfs:label>Verbal Inflection</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/VerbalLemma -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/VerbalLemma">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasPOS"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Verb"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/_by_inflection_type"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasDegree"/>
+                        <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Degree"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasGender"/>
+                        <owl:someValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/Gender"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://lila-erc.eu/ontologies/lila/hasInflectionType"/>
+                <owl:allValuesFrom rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/_by_inflection_type -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/_by_inflection_type">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/Lemma"/>
+        <rdfs:comment>Control class, which serves to check the consistency between POS annotation and inflection type.
+E.g. Verbs must never be inferred as having a nominal inflection</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/e-iConjugation -->
+
+    <owl:Class rdf:about="http://lila-erc.eu/ontologies/lila/e-iConjugation">
+        <rdfs:subClassOf rdf:resource="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        <rdfs:label>e/i Conjugation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/adjective -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/adjective">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Adjective"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>adjective</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/adposition -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/adposition">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Adposition"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>adposition</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/adverb -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/adverb">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Adverb"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>adverb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/auxiliary -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/auxiliary">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Auxiliary"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>auxiliary verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/comparative -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/comparative">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Comparative"/>
+        <system:hasTier>Morphs</system:hasTier>
+        <rdfs:label>comparative</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/coordinating_conjunction -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/coordinating_conjunction">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/CoordinatingConjunction"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>coordinating conjunction</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/determiner -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/determiner">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Determiner"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>determiner</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/feminine -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/feminine">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Feminine"/>
+        <system:hasTier>Morphs</system:hasTier>
+        <rdfs:label>feminine</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/i -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/i">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Invariable"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>See class description</rdfs:comment>
+        <rdfs:label>invariable</rdfs:label>
+        <rdfs:seeAlso>http://lila-erc.eu/ontologies/lila/Invariable</rdfs:seeAlso>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/interjection -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/interjection">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Interjection"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>interjection</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/masculine -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/masculine">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Masculine"/>
+        <system:hasTier>Morphs</system:hasTier>
+        <rdfs:label>masculine</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/UninflectedNoun"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>uninflected noun/adjective</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n1 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n1">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>first declension noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n1e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n1e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>first declension irregular noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n2 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n2">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>second declension (m/f) noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n2e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n2e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>second declension irregular noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n2i -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n2i">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>second declension masculine noun in -ius</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n2n -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n2n">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>second declension neuter noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n2ne -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n2ne">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>second declension neuter irregular noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n3 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n3">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>III declension nouns (masculine, and feminine) with genitive in –um/-ium</rdfs:comment>
+        <rdfs:label>third declension noun with gen pl in –um/-ium</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n31 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n31">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>III declension nouns (masculine, and feminine) with genitive in –um</rdfs:comment>
+        <rdfs:label>third declension noun gen pl in –um</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n3e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n3e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>III declension irregular nouns; singular ablative in -e</rdfs:comment>
+        <rdfs:label>third declension irregular noun abl sing in -e</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n3n -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n3n">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>III declension nouns (neuter) with plural genitive in –um/-ium</rdfs:comment>
+        <rdfs:label>third declension neuter noun with gen pl in –um/-ium</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n3ne -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n3ne">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>third declension neuter irregular noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n4 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n4">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FourthDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>fourth declension (m/f) noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n4n -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n4n">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FourthDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>fourth declension neuter noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n5 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n5">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FifthDeclension"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>fifth declension noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n6 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n6">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>I class adjectives; perfect and future participles; gerundives</rdfs:comment>
+        <rdfs:label>first class adjective</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n6i -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n6i">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>first class adjectives in –ius</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n6p -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n6p">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>I class pronominal adjectives with singular genitive in –ius and singular dative in -i</rdfs:comment>
+        <rdfs:label>first class pronominal adjective with dat sing in -i</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n6p3 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n6p3">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>I class pronominal adjectives inflected as regular first class adjectives</rdfs:comment>
+        <rdfs:label>first class pronominal adjectives with regular inflection</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n6s -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n6s">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>I class superlative degree adjectives</rdfs:comment>
+        <rdfs:label>first class superlative degree adjective</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n7 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n7">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>II class adjectives with singular nominative masculine and feminine ending in –is, neuter in –e, and singular ablative in –i</rdfs:comment>
+        <rdfs:label>second class adjective (nom sing in: -is,-e)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n71 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n71">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>II class adjectives with singular nominative the same for masculine, feminine and neuter (-s; -x; -r; -l), and singular ablative in –e/-i</rdfs:comment>
+        <rdfs:label>second class adjective (nom sing in: -s; -x; -r; -l)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n72 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n72">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>II class adjectives with singular nominative feminine ending in –is, masculine in –er, neuter in –e, and singular ablative in –i</rdfs:comment>
+        <rdfs:label>second class adjective (nom sing in: -er, -is, -e)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n73 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n73">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <rdfs:label>second class adjective (nom sing in: -er, -er, -e)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n7c -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n7c">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:comment>II class comparative degree adjectives</rdfs:comment>
+        <rdfs:label>second class comparative degree adjective</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/n7p -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/n7p">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondClass"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>second class pronominal adjective</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/neuter -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/neuter">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Neuter"/>
+        <system:hasTier>Morphs</system:hasTier>
+        <rdfs:label>neuter</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/noun -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/noun">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/CommonNoun"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:comment>Common noun, as opposed to proper noun. It gets the tag &apos;NOUN&apos; in UD</rdfs:comment>
+        <rdfs:label>common noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/numeral -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/numeral">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Numeral"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>numeral</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/other -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/other">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Other"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>other</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/p -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/p">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/PronominalInflection"/>
+        <system:hasTier>Codles</system:hasTier>
+        <rdfs:label>pronominal</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/particle -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/particle">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Particle"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>particle</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/positive -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/positive">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Positive"/>
+        <system:hasTier>Morphs</system:hasTier>
+        <rdfs:label>positive</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/pronoun -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/pronoun">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Pronoun"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>pronoun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/proper_noun -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/proper_noun">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ProperNoun"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>proper noun</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/punctuation -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/punctuation">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Punctuation"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>punctuation</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/subordinating_conjunction -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/subordinating_conjunction">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SubordinatingConjunction"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>subordinating conjunction</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/superlative -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/superlative">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Superlative"/>
+        <system:hasTier>Morphs</system:hasTier>
+        <rdfs:label>superlative</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/symbol -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/symbol">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Symbol"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>symbol</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/UninflectedVerb"/>
+        <rdfs:comment>TO BE REVIEWED! In the DB, only a handful of verbs have the cod v, and they seem all to be highly irregular verbs: &quot;cecos (from D), praedotiont, psolocopumai&quot;...)</rdfs:comment>
+        <rdfs:label>uninflected verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v1 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v1">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstConjugation"/>
+        <rdfs:label>first conjugation verb (isolated form)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v1d -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v1d">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstConjugation"/>
+        <rdfs:label>first conjugation deponent verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v1e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v1e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstConjugation"/>
+        <rdfs:label>first conjugation impersonal verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v1r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v1r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FirstConjugation"/>
+        <rdfs:label>first conjugation verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v2 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v2">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondConjugation"/>
+        <rdfs:label>second conjugation verb (isolated form)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v2d -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v2d">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondConjugation"/>
+        <rdfs:label>second conjugation deponent verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v2e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v2e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondConjugation"/>
+        <rdfs:label>second conjugation impersonal verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v2r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v2r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/SecondConjugation"/>
+        <rdfs:label>second conjugation verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v3 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v3">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdConjugation"/>
+        <rdfs:label>third conjugation verb (isolated form)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v3d -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v3d">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdConjugation"/>
+        <rdfs:label>third conjugation deponent verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v3e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v3e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdConjugation"/>
+        <rdfs:label>third conjugation impersonal verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v3r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v3r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/ThirdConjugation"/>
+        <rdfs:label>third conjugation verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v4 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v4">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FourthConjugation"/>
+        <rdfs:label>fourth conjugation verb (isolated form)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v4d -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v4d">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FourthConjugation"/>
+        <rdfs:label>fourth conjugation deponent verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v4e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v4e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FourthConjugation"/>
+        <rdfs:label>fourth conjugation impersonal verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v4r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v4r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/FourthConjugation"/>
+        <rdfs:label>fourth conjugation verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v5 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v5">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/e-iConjugation"/>
+        <rdfs:label>e/i conjugation verb (isolated form)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v5d -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v5d">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/e-iConjugation"/>
+        <rdfs:label>e/i conjugation deponent verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v5r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v5r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/e-iConjugation"/>
+        <rdfs:label>e/i conjugation verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v6 -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v6">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/IrregularConjugation"/>
+        <rdfs:label>irregular conjugation verb (isolated form)</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v6d -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v6d">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/IrregularConjugation"/>
+        <rdfs:label>irregular conjugation deponent verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v6e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v6e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/IrregularConjugation"/>
+        <rdfs:label>irregular conjugation impersonal verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v6r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v6r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/IrregularConjugation"/>
+        <rdfs:label>irregular conjugation verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v7e -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v7e">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Perfectum"/>
+        <rdfs:label>perfectum impersonal verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/v7r -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/v7r">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Perfectum"/>
+        <rdfs:label>perfectum verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://lila-erc.eu/ontologies/lila/verb -->
+
+    <owl:NamedIndividual rdf:about="http://lila-erc.eu/ontologies/lila/verb">
+        <rdf:type rdf:resource="http://lila-erc.eu/ontologies/lila/Verb"/>
+        <system:hasTier>POS</system:hasTier>
+        <rdfs:label>verb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/AdjectivalInflection"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Invariable"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/NominalInflection"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/PronominalInflection"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/VerbalInflection"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/AdjectivalLemma"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/InvariableLemma"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/NominalLemma"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/PronominalLemma"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/VerbalLemma"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Adjective"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Adposition"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Adverb"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Conjunction"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Determiner"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Interjection"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Noun"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Numeral"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Other"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Particle"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Pronoun"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Punctuation"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Symbol"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Verb"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Comparative"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Positive"/>
+            <rdf:Description rdf:about="http://lila-erc.eu/ontologies/lila/Superlative"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.6.2018-09-06T00:27:41Z) https://github.com/owlcs/owlapi -->
+
