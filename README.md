@@ -58,7 +58,7 @@ to query a triplestore, use Python’s requests module and make a POST request t
 The most suitable response format for the endpoint is json.  
 
 ```
-params = {query': 'a query', "format": "json"}
+params = {'query': 'a query', "format": "json"}
 x = requests.post(url, data=params)}
 ```
 
