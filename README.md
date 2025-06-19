@@ -41,6 +41,24 @@ LiLa Ontology OWL: [https://raw.githubusercontent.com/CIRCSE/LiLaOntologies/refs
 
 LiLa SPARQL Endpoint: [https://lila-erc.eu/sparql/lila_knowledge_base/sparql](https://lila-erc.eu/sparql/lila_knowledge_base/sparql)
 
+Python modules : ```requests, openai```
+
+
+## Hint:
+
+to query a triplestore, use Python’s requests module and make a POST request to the endpoint, passing the parameters with the data argument.  
+The most suitable response format for the endpoint is json.  
+
+```
+params = {query': a query', "format": "json"}
+x = requests.post(url, data=params)}
+```
+
+## Documentation 
+
+OpenAI API Documentation : https://platform.openai.com/docs/quickstart
+
+
 ## API Key:
 
 
