@@ -31,7 +31,7 @@ A rhetorical figure, in which a thing is committed to the decision of one's oppo
 - gather materials
   - load LiLa OWL to *instruct* the LLM
   - get the results of the example queries by quering the lila endpoint
-- combining them in order to promting the LLM
+- combining them in order to prompting the LLM
 - check the results
 
 
