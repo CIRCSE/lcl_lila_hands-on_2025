@@ -86,7 +86,7 @@ A list of latin lemmas to test:
 - urbs
 - acer
 - dies
--admirator
+- admirator
 
 ## Documentation 
 
