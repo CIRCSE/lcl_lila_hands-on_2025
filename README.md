@@ -62,7 +62,7 @@ params = {'query': 'a query', "format": "json"}
 x = requests.post(url, data=params)}
 ```
 
-To use opeanAI api use somthing like that:
+To use openAI api use something like that:
 ```
 stream = client.chat.completions.create(
     model="gpt-4o",
