@@ -92,6 +92,13 @@ A list of latin lemmas to test:
 
 OpenAI API Documentation : https://platform.openai.com/docs/quickstart
 
+# Code
+```
+{"role": "assistant", "content": """exsequiae noun, feminine (exsequiae, exequiae): first declension noun; also as: exsequium
+A funeral procession , funeral obsequies
+Transf. , in late Lat., for reliquiae, the earthly remains , relics
+"""},
+```
 
 
 
