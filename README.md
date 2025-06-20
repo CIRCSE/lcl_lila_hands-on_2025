@@ -78,6 +78,15 @@ for chunk in stream:
         print(chunk.choices[0].delta.content, end="")
 ```
 
+A list of latin lemmas to test:
+- rosa
+- dico
+- hosticus
+- admiror
+- urbs
+- acer
+- dies
+-admirator
 
 ## Documentation 
 
