@@ -49,9 +49,6 @@ Python modules : ```requests, openai```
 
 example queries (in this repository)  
 
-API Key: https://www.dropbox.com/scl/fi/c3v5vx4lhfbfwic939bnm/api_key.txt?rlkey=zs97ufynm8hu42rsnrureg14k&dl=1
-
-
 ## Hint:
 
 to query a triplestore, use Python’s requests module and make a POST request to the endpoint, passing the parameters with the data argument.  
@@ -92,7 +89,7 @@ A list of latin lemmas to test:
 
 OpenAI API Documentation : https://platform.openai.com/docs/quickstart
 
-# Code
+# Example of formatted enxtry
 ```
 {"role": "assistant", "content": """exsequiae noun, feminine (exsequiae, exequiae): first declension noun; also as: exsequium
 A funeral procession , funeral obsequies
