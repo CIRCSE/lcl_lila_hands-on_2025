@@ -89,7 +89,7 @@ A list of latin lemmas to test:
 
 OpenAI API Documentation : https://platform.openai.com/docs/quickstart
 
-# Example of formatted enxtry
+## Example of formatted entry
 ```
 {"role": "assistant", "content": """exsequiae noun, feminine (exsequiae, exequiae): first declension noun; also as: exsequium
 A funeral procession , funeral obsequies
